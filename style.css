@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+body {
+    font-family: "Open Sans";
+}
+
+.main {
+    display: flex;
+}
+
+.input {
+    width: 150%;
+    border-right: 1px solid black;
+    padding: 20px;
+    height: 100vh;
+    font-size: small;
+}
+
+.output {
+    padding: 35px;
+}
+
+label {
+    font-size: small !important;
+}
+
+th, td {
+    font-size: small;
+}
+table {
+    margin-top: 8px;
+}
+
+table th {
+    padding: 2px !important;
+}
+table td{
+    padding: 0px !important;
+}
+
+table input {
+    width: 100% !important;
+    border: none;
+}
+input, select {
+    font-size: small !important;
+}

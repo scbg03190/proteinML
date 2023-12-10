@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIR Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+    <div class="main">
+        <div class="input">
+            <br><br><br>
+            <hr>
+            <h4>Initiation Rate Prediction:</h4>
+            <hr>
+            <span>Upload file containing sequences:</span>
+            <br>
+            <input type="file" name="file" id="file">
+            <table class="table table-bordered">
+                <tr>
+                    <th>No.</th>
+                    <th>Sequence</th>
+                    <th>Start codon index</th>
+                    <th>Stop codon index</th>
+                    <th>Status</th>
+                </tr>
+                <tbody id="sequences-table">
+
+                </tbody>
+                <td style="background-color: green; color: white; cursor: pointer;" colspan="6" class="text-center"
+                    id="sequence-adder">
+                    Add</td>
+            </table>
+
+            <!-- <button class="btn-sm btn btn-success" id="sequence-adder">Add</button> -->
+            <button class="btn btn-primary btn-sm" style="width: 100%;" id="submit-btn">
+                Calculate Features and Predict Initiation Rate
+            </button>
+            <table class="table table-bordered">
+                <tr>
+                    <th>No.</th>
+                    <th>N1</th>
+                    <th>N4</th>
+                    <th>Folding Energy (70 nucleotides)</th>
+                    <th>Folding Energy (80 nucleotides)</th>
+                    <th>Gene Length</th>
+                    <th>In frame AUG</th>
+                    <th>Kozak Score</th>
+                    <th>Length of 5' UTR</th>
+                    <th>Initiation Rate</th>
+                </tr>
+                <tbody id="output-body">
+                </tbody>
+            </table>
+            <hr>
+            <div class="gene-optimization">
+                <h4>Gene Optimization</h4>
+                <hr>
+                <label for="target-i">Target Initiation Rate</label>
+                <input type="number" id="target-i" required class="form-control" placeholder="Ex. 0.8">
+                <label for="iterations">Number of Iterations</label>
+                <input type="number" id="iterations" required class="form-control" placeholder="Ex. 1500">
+                <label for="method">Choose a method</label>
+                <select class="form-select" id="method" required>
+                    <option selected>Choose a method</option>
+                    <option value="1">Optimization with UTR</option>
+                    <option value="2">Optimization with UTR and codon</option>
+                </select>
+                <br>
+                <button class="btn btn-primary btn-sm" style="width: 100%;" id="optimize">
+                    Optimize
+                </button>
+            </div>
+            <span style="display: none;" id="loading">Job in progress....</span>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Target</th>
+                    <th>I
+                    </th>
+                    <th>Gene</th>
+                </tr>
+                <tbody id="optimized-output">
+                </tbody>
+            </table>
+        </div>
+        <div class="output">
+            <br>
+            <br>
+            <h1>TIR Predictor</h1>
+            This allows user to predict Translation Initation Rate in Saccharomyces cerevisiae using mRNA features using
+            Machine Learning methods.
+            <br>
+            <br>
+            <h3>Introduction</h3>
+            <p>Translation initiation, which is the rate-limiting step in protein synthesis, can vary significantly and
+                have
+                a profound impact on cellular protein levels. Multiple molecular factors, such as mRNA structure
+                stability,
+                coding sequence length, and specific motifs in mRNA, influence the translation initiation rate, allowing
+                precise control of protein synthesis. Despite the crucial role of translation initiation rate,
+                accurately
+                predicting its absolute values based on mRNA sequence features remains challenging. To address this
+                issue,
+                we developed a machine learning model specifically trained to predict the in vivo initiation rate in S.
+                cerevisiae transcripts.
+                <br>
+                <br>
+                Further using this app the user can optimize the gene and achieve their desired target initiation rate
+                using 2 methods:
+            <ol>
+                <li>Optimization with UTR</li>
+                <li>Optimization with UTR and codon</li>
+            </ol>
+            This has been developed on Python 3.9
+            </p>
+            <h3>How to use?</h3>
+            <p>
+            <ol>
+                <li>Enter the CDS Sequence, start codon and stop codon sites</li>
+                <li>Click on the "Calculate Features & Predict Initiation rate" to initiate the analysis.</li>
+                <li>If you want to optimize enter the target inititation rate.</li>
+                <li>Enter how many time you want to iterate the process.</li>
+                <li>Wait for the message "Optimization completed!"</li>
+            </ol>
+            Note: The output file will contain the perdcited translation initiation rate of the input given for specific
+            given genes.It works properly with one or more genes.
+            </p>
+        </div>
+    </div>
+</body>
+<script src="{{url_for('static', filename='main.js')}}"></script>
+
+</html>
